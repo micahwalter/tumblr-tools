@@ -2,6 +2,7 @@ import os
 import pytumblr
 import json
 import optparse
+import urllib
 
 client = pytumblr.TumblrRestClient(
     os.environ['TUMBLR_CONSUMER_KEY'],
@@ -65,6 +66,18 @@ if __name__ == '__main__':
 						f = open(filename, 'w')
 						f.write(json.dumps(post, indent=4, sort_keys=True))
 						f.close()
+					try:
+						for photo in post['photos']:
+							if opts.save == 'yes':
+								if not os.path.exists('data/images'):
+								    os.makedirs('data/images')
+								url = photo['original_size']['url']
+								filename = 'data/images/' + str(post['id']) + "-" + str(url.rsplit('/',1)[1])
+								print filename
+								urllib.urlretrieve(url, filename)
+					except Exception, e:
+						print "no photos :("
+					
 					
 		### get all the blogs's followers
 		followers = client.followers(blog['name'], offset=0, limit=1)
