@@ -12,5 +12,5 @@ usage
 dependencies
 ---
 
-* [pytumblr]('https://github.com/tumblr/pytumblr')
+* [pytumblr](https://github.com/tumblr/pytumblr)
 * oauth2
